@@ -1,0 +1,12 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: local-postgres-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: music_catalog_db
+    # volumes:
+    #   - /Users/Administrator/go/aesh/aesh_postgres/db:/var/lib/postgresql/data
