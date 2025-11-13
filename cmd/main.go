@@ -3,7 +3,11 @@ package main
 import (
 	"log"
 
-	"github.com/arashiaslan/music-catalog-go/configs"
+	"github.com/arashiaslan/music-catalog-go/internal/configs"
+	"github.com/arashiaslan/music-catalog-go/internal/models/memberships"
+	membershipRepo "github.com/arashiaslan/music-catalog-go/internal/repository/memberships"
+	membershipSvc "github.com/arashiaslan/music-catalog-go/internal/services/memberships"
+	membershipHandler "github.com/arashiaslan/music-catalog-go/internal/handler/memberships"
 	"github.com/arashiaslan/music-catalog-go/pkg/internalsql"
 	"github.com/gin-gonic/gin"
 )
@@ -30,7 +34,18 @@ func main() {
 		log.Fatal("Gagal koneksi ke database, err: %v", err)
 	}
 
+	db.AutoMigrate(&memberships.User{})
+	// db.AutoMigrate(&memberships.SignupRequest{})
+
 	r := gin.Default()
+
+	membershipRepo := membershipRepo.NewRepository(db)
+	membershipSvc := membershipSvc.NewService(cfg, membershipRepo)
+	membershipHandler := membershipHandler.NewHandler(r, membershipSvc)
+
+	membershipHandler.RegisterRoute()
+
+
 
 	r.Run(cfg.Service.Port)
 }
