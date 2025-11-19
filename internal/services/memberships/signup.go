@@ -3,8 +3,8 @@ package memberships
 import (
 	"errors"
 
-	"github.com/rs/zerolog/log"
 	"github.com/arashiaslan/music-catalog-go/internal/models/memberships"
+	"github.com/rs/zerolog/log"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )

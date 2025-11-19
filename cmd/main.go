@@ -4,10 +4,10 @@ import (
 	"log"
 
 	"github.com/arashiaslan/music-catalog-go/internal/configs"
+	membershipHandler "github.com/arashiaslan/music-catalog-go/internal/handler/memberships"
 	"github.com/arashiaslan/music-catalog-go/internal/models/memberships"
 	membershipRepo "github.com/arashiaslan/music-catalog-go/internal/repository/memberships"
 	membershipSvc "github.com/arashiaslan/music-catalog-go/internal/services/memberships"
-	membershipHandler "github.com/arashiaslan/music-catalog-go/internal/handler/memberships"
 	"github.com/arashiaslan/music-catalog-go/pkg/internalsql"
 	"github.com/gin-gonic/gin"
 )
@@ -44,8 +44,6 @@ func main() {
 	membershipHandler := membershipHandler.NewHandler(r, membershipSvc)
 
 	membershipHandler.RegisterRoute()
-
-
 
 	r.Run(cfg.Service.Port)
 }
